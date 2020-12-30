@@ -150,7 +150,7 @@ Snowpack is a lightweight, easy-to-use JavaScript build tool designed for front-
 4. Open a terminal within VS (View > Terminal) and execute the following commands:
 
     > $ cd JS
-    > $ npm init -y
+    $ npm init -y
 
 This will create the default package.json NPM configuration file in the JS folder.
 
