@@ -33,11 +33,11 @@ This is particularly useful when distributing components in a Razor class librar
 4. Under the js folder, create a component1.js file. This will be the companion JavaScript file to Component1.razor. Technically you could name the file anything, but for the sake of maintenance it's best to keep it consistent with the name of your component. Open the component1.js file and copy the following:
 
    ```js
-export function helloWorld()
-{
-    prompt('Hello World!');
-}
-```
+   export function helloWorld()
+   {
+       prompt('Hello World!');
+   }
+   ```
 
    This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the import statement to bring in outside code to be used in our module (component1.js is known as a module), and the export statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
 
@@ -45,7 +45,7 @@ export function helloWorld()
 
    ![Screenshot](/assets/js-in-blazor-screenshot1.png)
 
-6. Open Component1.razor and replace the content with 4:
+6. Open Component1.razor and replace the content with:
 
    ```c#
    @inject IJSRuntime jsRuntime
@@ -73,43 +73,43 @@ export function helloWorld()
 
    The second line invokes a JavaScript function contained within the imported component1.js module, in this case helloWorld.
 
-   The alternate example below covers a slightly more complex use case. Sometimes, your JavaScript activity spans multiple C# methods. Rather than creating several IJSObjectReference objects all pointing to the same module, save it as a class field and reuse it as needed:
+    The alternate example below covers a slightly more complex use case. Sometimes, your JavaScript activity spans multiple C# methods. Rather than creating several IJSObjectReference objects all pointing to the same module, save it as a class field and reuse it as needed:
 
-   ```csharp
-@implements IAsyncDisposable
+    ```csharp
+    @implements IAsyncDisposable
 
-@inject IJSRuntime jsRuntime
+    @inject IJSRuntime jsRuntime
 
-<h3>Component1</h3>
+    <h3>Component1</h3>
 
-@code
-{
-    private Lazy<Task<IJSObjectReference>> jsModuleTask;
-
-    protected override void OnInitialized()
+    @code
     {
-        jsModuleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/component1.js").AsTask());
-    }
+        private Lazy<Task<IJSObjectReference>> jsModuleTask;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
+        protected override void OnInitialized()
         {
-            var jsModule = await jsModuleTask.Value;
-            await jsModule.InvokeVoidAsync("helloWorld");
+            jsModuleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/component1.js").AsTask());
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var jsModule = await jsModuleTask.Value;
+                await jsModule.InvokeVoidAsync("helloWorld");
+            }
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            if (jsModuleTask.IsValueCreated)
+            {
+                var jsModule = await jsModuleTask.Value;
+                await jsModule.DisposeAsync();
+            }
         }
     }
-
-    public async ValueTask DisposeAsync()
-    {
-        if (jsModuleTask.IsValueCreated)
-        {
-            var jsModule = await jsModuleTask.Value;
-            await jsModule.DisposeAsync();
-        }
-    }
-}
-```
+    ```
 
    The OnInitialized lifecycle method prepares the JavaScript import statement. "Prepares" is the keyword here, since we aren't executing the statement right away, instead saving it for later in a lazily initialized object. If we tried executing this asynchronous statement in an OnInitializedAsync method, by design Blazor would call our OnAfterRender method twice. The first time with a null value for the imported module, and the second time with the actual module, but a firstRender value of false, preventing us from using the module on the first render (for example to call a JavaScript initialization function).
 
