@@ -47,7 +47,7 @@ export function helloWorld()
 
 6. Open Component1.razor and replace the content with:
 
-   ```
+   ```c#
 protected override async Task OnAfterRenderAsync(bool firstRender)
 {
     if (firstRender)
