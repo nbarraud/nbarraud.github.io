@@ -45,7 +45,7 @@ export function helloWorld()
 
    ![Screenshot](/assets/js-in-blazor-screenshot1.png)
 
-6. Open Component1.razor and replace the content with sdfsdf:
+6. Open Component1.razor and replace the content with 2:
    ```c#
 @inject IJSRuntime jsRuntime
     
