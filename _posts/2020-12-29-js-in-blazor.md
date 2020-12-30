@@ -39,7 +39,7 @@ export function helloWorld()
 }
 ```
 
-This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the import statement to bring in outside code to be used in our module (component1.js is known as a module), and the export statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
+ This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the import statement to bring in outside code to be used in our module (component1.js is known as a module), and the export statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
 
 5. At this point, your folder structure should look something like this:
 
