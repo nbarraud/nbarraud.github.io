@@ -149,14 +149,16 @@ Snowpack is a lightweight, easy-to-use JavaScript build tool designed for front-
 
 4. Open a terminal within VS (View > Terminal) and execute the following commands:
 
-    > $ cd JS
+    ```
+    $ cd JS
     $ npm init -y
+    ```
 
 This will create the default package.json NPM configuration file in the JS folder.
 
 5. Now let's install Snowpack using NPM.
 
-    > $ npm i --save-dev snowpack
+    `$ npm i --save-dev snowpack`
 
     This will download and install Snowpack and its dependencies under the hidden node_modules folder. The --save-dev flag means that the packages will be installed as development tools, and will not be included in your final build.
 
