@@ -29,7 +29,7 @@ This is particularly useful when distributing components in a Razor class librar
 2. Create a new Razor component and call the file Component1.razor.
 
 3. In the wwwroot folder of your project, create a new subfolder called js. This is the public-facing folder where all your JavaScript assets are going.
-
+ 
  pouet
 
 4. Under the js folder, create a component1.js file. This will be the companion JavaScript file to Component1.razor. Technically you could name the file anything, but for the sake of maintenance it's best to keep it consistent with the name of your component. Open the component1.js file and copy the following:
