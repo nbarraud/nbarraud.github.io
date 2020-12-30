@@ -47,24 +47,6 @@ export function helloWorld()
 
 6. Open Component1.razor and replace the content with  aaaa:
 
-   ```
-inject IJSRuntime jsRuntime
-
-<h3>Component1</h3>
-
-code
-{
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await using var jsModule = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/component1.js");
-            await jsModule.InvokeVoidAsync("helloWorld");
-        }
-    }
-}
-```
-
    The OnAfterRenderAsync lifecycle method is a good place to make JS Interop calls, since the DOM is fully loaded at this point. But you can make JS calls at any other time if you don't need the DOM.
 
    In keeping with the ES module system, we are performing a JavaScript import from Blazor using InvokeAsync. This returns the IJSObjectReference of the imported module. This object must be properly disposed of since it implements IAsyncDisposable, hence the await using statement.
