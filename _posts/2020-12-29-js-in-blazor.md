@@ -30,26 +30,26 @@ This is particularly useful when distributing components in a Razor class librar
 
 3. In the wwwroot folder of your project, create a new subfolder called js. This is the public-facing folder where all your JavaScript assets are going.
 
-3. pouet 3
+   pouet 4
 
 4. Under the js folder, create a component1.js file. This will be the companion JavaScript file to Component1.razor. Technically you could name the file anything, but for the sake of maintenance it's best to keep it consistent with the name of your component. Open the component1.js file and copy the following:
 
-4. ```js
+   ```js
 export function helloWorld()
 {
     prompt('Hello World!');
 }
 ```
 
-4. This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the import statement to bring in outside code to be used in our module (component1.js is known as a module), and the export statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
+   This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the import statement to bring in outside code to be used in our module (component1.js is known as a module), and the export statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
 
 5. At this point, your folder structure should look something like this:
- 
-5. ![asdasd](/assets/js-in-blazor-screenshot1.png)
+
+   ![asdasd](/assets/js-in-blazor-screenshot1.png)
 
 6. Open Component1.razor and replace the content with:
 
-```c#
+   ```c#
 @inject IJSRuntime jsRuntime
 
 <h3>Component1</h3>
@@ -67,20 +67,23 @@ export function helloWorld()
 }
 ```
 
-The OnAfterRenderAsync lifecycle method is a good place to make JS Interop calls, since the DOM is fully loaded at this point. But you can make JS calls at any other time if you don't need the DOM.
-In keeping with the ES module system, we are performing a JavaScript import from Blazor using InvokeAsync. This returns the IJSObjectReference of the imported module. This object must be properly disposed of since it implements IAsyncDisposable, hence the await using statement.
-At this point, it's important to understand the IJSObjectReference interface returned by the import statement. This is one of the new classes .NET 5.0 has introduced, and it represents a reference to a JavaScript object returned by a JavaScript function. Unlike a regular return value, it can only be used to invoke functions contained within the returned object. There are 2 more IJSObjectReference-type classes if your Blazor app is client-side only and you want to take advantage of some optimizations; you can use IJSInProcessObjectReference or even IJSUnmarshalledObjectReference for extreme optimization cases. Personally, I only develop client-side Blazor so I use IJSInProcessObjectReference. Server-side Blazor must stick to IJSObjectReference.
-The second line invokes a JavaScript function contained within the imported component1.js module, in this case helloWorld.
-The alternate example below covers a slightly more complex use case. Sometimes, your JavaScript activity spans multiple C# methods. Rather than creating several IJSObjectReference objects all pointing to the same module, save it as a class field and reuse it as needed:
+   The OnAfterRenderAsync lifecycle method is a good place to make JS Interop calls, since the DOM is fully loaded at this point. But you can make JS calls at any other time if you don't need the DOM.
 
+   In keeping with the ES module system, we are performing a JavaScript import from Blazor using InvokeAsync. This returns the IJSObjectReference of the imported module. This object must be properly disposed of since it implements IAsyncDisposable, hence the await using statement.
 
+   At this point, it's important to understand the IJSObjectReference interface returned by the import statement. This is one of the new classes .NET 5.0 has introduced, and it represents a reference to a JavaScript object returned by a JavaScript function. Unlike a regular return value, it can only be used to invoke functions contained within the returned object. There are 2 more IJSObjectReference-type classes if your Blazor app is client-side only and you want to take advantage of some optimizations; you can use IJSInProcessObjectReference or even IJSUnmarshalledObjectReference for extreme optimization cases. Personally, I only develop client-side Blazor so I use IJSInProcessObjectReference. Server-side Blazor must stick to IJSObjectReference.
 
-The OnInitialized lifecycle method prepares the JavaScript import statement. "Prepares" is the keyword here, since we aren't executing the statement right away, instead saving it for later in a lazily initialized object. If we tried executing this asynchronous statement in an OnInitializedAsync method, by design Blazor would call our OnAfterRender method twice. The first time with a null value for the imported module, and the second time with the actual module, but a firstRender value of false, preventing us from using the module on the first render (for example to call a JavaScript initialization function).
-The OnAfterRenderAsync method is where we actually run the import statement. This is triggered the first time we access the Value field of our lazy object. This call is asynchronous, but perfectly safe to perform at this stage. We can now invoke the JavaScript functions contained within the imported module.
-Lastly, the disposal of IJSObjectReference must be implemented in a DisposeAsync method as shown, and your component must implement IAsyncDisposable.
+   The second line invokes a JavaScript function contained within the imported component1.js module, in this case helloWorld.
+
+   The alternate example below covers a slightly more complex use case. Sometimes, your JavaScript activity spans multiple C# methods. Rather than creating several IJSObjectReference objects all pointing to the same module, save it as a class field and reuse it as needed:
+
+   The OnInitialized lifecycle method prepares the JavaScript import statement. "Prepares" is the keyword here, since we aren't executing the statement right away, instead saving it for later in a lazily initialized object. If we tried executing this asynchronous statement in an OnInitializedAsync method, by design Blazor would call our OnAfterRender method twice. The first time with a null value for the imported module, and the second time with the actual module, but a firstRender value of false, preventing us from using the module on the first render (for example to call a JavaScript initialization function).
+
+   The OnAfterRenderAsync method is where we actually run the import statement. This is triggered the first time we access the Value field of our lazy object. This call is asynchronous, but perfectly safe to perform at this stage. We can now invoke the JavaScript functions contained within the imported module.
+
+   Lastly, the disposal of IJSObjectReference must be implemented in a DisposeAsync method as shown, and your component must implement IAsyncDisposable.
+
 7. You can now open the Razor file of your choice (for example Index.razor), and add your new component in the markup:
-
-
 
 8. Run your app and notice the JavaScript prompt.
 Component1 can now be reused anywhere without the extra step of referencing the component1.js file or even being aware of JavaScript behind the scene.
