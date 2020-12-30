@@ -47,7 +47,7 @@ This is a simple function that opens a prompt and says Hello World. The export k
 
 6. Open Component1.razor and replace the content with:
 
-```csharp
+```c#
 @inject IJSRuntime jsRuntime
 
 <h3>Component1</h3>
@@ -62,7 +62,8 @@ This is a simple function that opens a prompt and says Hello World. The export k
             await jsModule.InvokeVoidAsync("helloWorld");
         }
     }
-}```
+}
+```
 
 The OnAfterRenderAsync lifecycle method is a good place to make JS Interop calls, since the DOM is fully loaded at this point. But you can make JS calls at any other time if you don't need the DOM.
 In keeping with the ES module system, we are performing a JavaScript import from Blazor using InvokeAsync. This returns the IJSObjectReference of the imported module. This object must be properly disposed of since it implements IAsyncDisposable, hence the await using statement.
