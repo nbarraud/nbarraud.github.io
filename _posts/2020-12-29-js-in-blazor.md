@@ -45,9 +45,9 @@ export function helloWorld()
 
    ![Screenshot](/assets/js-in-blazor-screenshot1.png)
 
-6. Open Component1.razor and replace the content with  aaaa:
+6. Open Component1.razor and replace the content with:
 
-   ```js
+   ```
 protected override async Task OnAfterRenderAsync(bool firstRender)
 {
     if (firstRender)
