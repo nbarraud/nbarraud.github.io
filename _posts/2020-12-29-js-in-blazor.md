@@ -158,17 +158,23 @@ This will create the default package.json NPM configuration file in the JS folde
 
 5. Now let's install Snowpack using NPM.
 
-    `$ npm i --save-dev snowpack`
+    ```
+    $ npm i --save-dev snowpack
+    ```
 
     This will download and install Snowpack and its dependencies under the hidden node_modules folder. The --save-dev flag means that the packages will be installed as development tools, and will not be included in your final build.
 
 6. I recommend installing the optional Optimize plugin for Snowpack, in order to minify your final published JavaScript during the build step (reduce its size).
 
-    > $ npm i --save-dev @snowpack/plugin-optimize
+    ```
+    $ npm i --save-dev @snowpack/plugin-optimize
+    ```
 
 7. Finally, since the reason you're doing all this is to use JS libraries, you will need to install them at this stage. For example, let's install lodash, a data manipulation library.
 
-    > $ npm i --save lodash
+    ```
+    $ npm i --save lodash
+    ```
 
     Notice that this time we have used the --save flag, meaning the package will be included in your final code to be run in the browser.
 
@@ -221,7 +227,7 @@ This will create the default package.json NPM configuration file in the JS folde
 
 11. The final stage of building our JavaScript toolchain is to integrate it into the VS build step. Double-click your project in the Solution Explorer in order to bring up your .csproj file. Add the following section:
 
-    ```
+    ```xml
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Condition="$(Configuration) == 'Debug'" Command="cd JS &amp;&amp; npm run snowpack-build" />
         <Exec Condition="$(Configuration) == 'Release'" Command="cd JS &amp;&amp; npm run snowpack-build" />
