@@ -47,7 +47,7 @@ This is a simple function that opens a prompt and says Hello World. The export k
 
 6. Open Component1.razor and replace the content with:
 
-```c#
+```csharp
 @inject IJSRuntime jsRuntime
 
 <h3>Component1</h3>
