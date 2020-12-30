@@ -1,4 +1,5 @@
-theme: jekyll-theme-hacker
 title: A Bunch of Random Tech Articles
 description: Mostly for myself and a couple others, maybe.
-google_analytics: 123
+show_downloads: false
+google_analytics: 
+theme: jekyll-theme-hacker

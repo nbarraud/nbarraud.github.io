@@ -6,7 +6,7 @@ author: Nicolas Barraud
 tags: blazor javascript node
 ---
 
-![The Blazor, Javascript and Node logos](./js-in-blazor-assets/blazor-js.png)
+![The Blazor, Javascript and Node logos](/assets/js-in-blazor.png)
 
 As a front-end browser technology based on .NET, Blazor is one of the top contenders for an quasi-alternative to ubiquitous JavaScript. At Airbadge (a virtual office for remote collaboration and team building), we are excited about the prospect of using C# on the client side, not to mention the potential of native compiled code for improved performance. Blazor is currently a hot topic at Microsoft, which affords it a good level of attention and steady progress.
 
@@ -43,11 +43,26 @@ This is a simple function that opens a prompt and says Hello World. The export k
 
 5. At this point, your folder structure should look something like this:
 
-![asdasd](./js-in-blazor-assets/screenshot1.png)
+![asdasd](/assets/js-in-blazor-screenshot1.png)
 
 6. Open Component1.razor and replace the content with:
 
+```c#
+@inject IJSRuntime jsRuntime
 
+<h3>Component1</h3>
+
+@code
+{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await using var jsModule = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/component1.js");
+            await jsModule.InvokeVoidAsync("helloWorld");
+        }
+    }
+}```
 
 The OnAfterRenderAsync lifecycle method is a good place to make JS Interop calls, since the DOM is fully loaded at this point. But you can make JS calls at any other time if you don't need the DOM.
 In keeping with the ES module system, we are performing a JavaScript import from Blazor using InvokeAsync. This returns the IJSObjectReference of the imported module. This object must be properly disposed of since it implements IAsyncDisposable, hence the await using statement.
