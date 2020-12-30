@@ -33,14 +33,14 @@ This is particularly useful when distributing components in a Razor class librar
  pouet
 
 4. Under the js folder, create a component1.js file. This will be the companion JavaScript file to Component1.razor. Technically you could name the file anything, but for the sake of maintenance it's best to keep it consistent with the name of your component. Open the component1.js file and copy the following:
-
+ 
 ```js
 export function helloWorld()
 {
     prompt('Hello World!');
 }
 ```
-
+ 
  This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the import statement to bring in outside code to be used in our module (component1.js is known as a module), and the export statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
 
 5. At this point, your folder structure should look something like this:
