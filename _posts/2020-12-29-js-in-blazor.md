@@ -47,7 +47,7 @@ export function helloWorld()
 
 6. Open Component1.razor and replace the content with:
 
-   ```csharp
+   ```
 @inject IJSRuntime jsRuntime
 
 <h3>Component1</h3>
