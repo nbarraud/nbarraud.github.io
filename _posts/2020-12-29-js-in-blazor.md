@@ -38,7 +38,7 @@ This is particularly useful when distributing components in a Razor class librar
     }
     ```
 
-    This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) statement to bring in outside code to be used in our module (component1.js is known as a module), and the [export](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export) statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
+    This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) statement to bring in outside code to be used in our module (`component1.js` is known as a module), and the [export](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export) statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
 
 5. At this point, your folder structure should look something like this:
 
@@ -153,7 +153,7 @@ A downside to Node packages, is that they are not compatible with browsers out o
     $ npm init -y
     ```
 
-    This will create the default `package.json` NPM configuration file in the JS folder.
+    This will create the default `package.json` NPM configuration file in the `JS` folder.
 
 5. Now let's install Snowpack using NPM.
 

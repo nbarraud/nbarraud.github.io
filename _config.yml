@@ -4,7 +4,7 @@ title: A Bunch of Random Tech Articles
 author:
   name: Nicolas Barraud
   email: nicolas@airbadge.com
-description: Just some tech articles and tutorials I write for myself while working on stuff.
+description: Just some tech articles and tutorials I write for myself while working on stuff. Hope you find some use!
 show_excerpts: true # set to true to show excerpts on the homepage
 
 # Minima date format
@@ -54,4 +54,5 @@ minima:
 remote_theme: jekyll/minima
 
 plugins:
+ - jekyll-feed
  - jekyll-seo-tag
