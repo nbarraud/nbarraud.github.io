@@ -1,7 +1,5 @@
 title: A Bunch of Random Tech Articles
-description: Mostly for myself and possibly you.
-github:
-  is_project_page: false
+description: Mostly for myself, but feel free to browse around.
 show_downloads: false
 google_analytics: 
 theme: jekyll-theme-cayman
