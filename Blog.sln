@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Blog Articles", ".", "{66DF65A6-60FA-4131-911C-EF7C33221CED}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Blog", ".", "{66DF65A6-60FA-4131-911C-EF7C33221CED}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_61437"
-		Debug.AspNetCompiler.PhysicalPath = "..\Blog Articles\"
+		Debug.AspNetCompiler.PhysicalPath = "..\Blog\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61437\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_61437"
-		Release.AspNetCompiler.PhysicalPath = "..\Blog Articles\"
+		Release.AspNetCompiler.PhysicalPath = "..\Blog\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61437\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "61437"
-		SlnRelativePath = "..\Blog Articles\"
+		SlnRelativePath = "..\Blog\"
 	EndProjectSection
 EndProject
 Global
