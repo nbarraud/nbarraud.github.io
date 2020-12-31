@@ -2,5 +2,5 @@ title: A Bunch of Random Tech Articles
 description: Mostly for myself, but feel free to browse around.
 show_downloads: false
 google_analytics: 
-theme: jekyll-theme-cayman
+remote_theme: "mmistakes/jekyll-theme-basically-basic"
 permalink: /:title:output_ext
