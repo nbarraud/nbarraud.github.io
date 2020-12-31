@@ -2,6 +2,8 @@ remote_theme: jekyll/minima
 
 title: Nicolas Barraud's Blog
 
+description: I'm the founder at Airbadge, a virtual office for remote teams.
+
 author:
   name: Nicolas Barraud
   email: nicolas@airbadge.com
@@ -9,11 +11,11 @@ author:
     name: Airbadge
     url: https://www.airbadge.com
 
-description: I'm the founder at Airbadge, a virtual office for remote teams.
-
 show_excerpts: false
 
 permalink: /:title:output_ext
+
+google_analytics: G-78CXCX9H4J
 
 minima:
   date_format: "%b %-d, %Y"
