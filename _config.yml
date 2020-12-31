@@ -53,6 +53,9 @@ minima:
 # Build settings
 remote_theme: jekyll/minima
 
+disqus:
+    shortname: nicolasbarraudblog
+
 plugins:
  - jekyll-feed
  - jekyll-seo-tag
