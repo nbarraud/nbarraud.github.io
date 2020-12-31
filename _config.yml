@@ -8,7 +8,7 @@ author:
 
 description: I'm the founder at Airbadge, a virtual office for remote teams. I write this blog as a personal knowledge base, and hopefully to help a few fellow developers.
 
-show_excerpts: true
+show_excerpts: false
 
 permalink: /:title:output_ext
 
