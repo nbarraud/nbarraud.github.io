@@ -3,3 +3,4 @@ description: Mostly for myself and a couple others, maybe.
 show_downloads: false
 google_analytics: 
 theme: jekyll-theme-hacker
+permalink: /:title:output_ext
