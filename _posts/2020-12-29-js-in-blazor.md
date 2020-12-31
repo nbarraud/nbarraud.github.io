@@ -1,9 +1,8 @@
 ﻿---
 layout: post
 title: How to use JavaScript and Node packages in a Blazor app
-date: 2020-12-29 00:00:00 -0000
+date: 2020-12-29 00:00:00 -0500
 excerpt: Tutorial on how to call JavaScript from Blazor with JS isolation, and on using Node packages in Blazor thanks to Snowpack or Skypack.
-tags: blazor javascript node
 ---
 
 ![The Blazor, Javascript and Node logos](/assets/js-in-blazor.png)
