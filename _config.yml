@@ -4,7 +4,7 @@ title: Nicolas Barraud's Blog
 author:
   name: Nicolas Barraud
   email: nicolas@airbadge.com
-description: I'm the founder at [Airbadge](https://www.airbadge.com), a virtual office for remote teams. I write this blog as a personal knowledge base, and hopefully to help a few fellow developers.
+description: I'm the founder at <a href="https://www.airbadge.com">Airbadge</a>, a virtual office for remote teams. I write this blog as a personal knowledge base, and hopefully to help a few fellow developers.
 show_excerpts: true # set to true to show excerpts on the homepage
 
 # Minima date format
