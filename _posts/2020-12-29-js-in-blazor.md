@@ -3,7 +3,7 @@ layout: post
 title: How to use JavaScript and Node packages in a Blazor app
 date: 2020-12-29 00:00:00 -0000
 author: Nicolas Barraud
-excerpt: Bla bla
+excerpt: Bla bla bla
 tags: blazor javascript node
 ---
 
