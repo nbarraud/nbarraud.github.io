@@ -1,8 +1,8 @@
 title: A Bunch of Random Tech Articles
 description: Mostly for myself and a couple others, maybe.
 github: 
-is_project_page: false
+    is_project_page: false
 show_downloads: false
 google_analytics: 
 theme: jekyll-theme-cayman
-permalink: /:title:output_ext
+permalink: /:title:outpkut_ext
