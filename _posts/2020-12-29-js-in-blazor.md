@@ -8,7 +8,7 @@ tags: blazor javascript node
 
 ![The Blazor, Javascript and Node logos](/assets/js-in-blazor.png)
 
-As a front-end browser technology based on .NET, [Blazor](https://medium.com/r/?url=https%3A%2F%2Fdotnet.microsoft.com%2Fapps%2Faspnet%2Fweb-apps%2Fblazor) is one of the top contenders for an quasi-alternative to ubiquitous JavaScript. At [Airbadge](https://medium.com/r/?url=https%3A%2F%2Fwww.airbadge.com) (a virtual office for remote collaboration and team building), we are excited about the prospect of using C# on the client side, not to mention the potential of native compiled code for improved performance. Blazor is currently a hot topic at Microsoft, which affords it a good level of attention and steady progress.
+As a front-end browser technology based on .NET, [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor) is one of the top contenders for an quasi-alternative to ubiquitous JavaScript. At [Airbadge](https://www.airbadge.com) (a virtual office for remote collaboration and team building), we are excited about the prospect of using C# on the client side, not to mention the potential of native compiled code for improved performance. Blazor is currently a hot topic at Microsoft, which affords it a good level of attention and steady progress.
 
 Despite this, JavaScript will remain firmly entrenched for many years to come, due to its popularity among developers and an impressive collection of ready-made libraries.
 
@@ -18,9 +18,9 @@ In this article, we are going to cover how to call JavaScript from Blazor using 
 
 ## Calling JavaScript functions from Blazor using JS isolation
 
-.NET 5.0 introduces a new set of classes in the [JS Interop namespace](https://medium.com/r/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fdotnet%2Fapi%2Fmicrosoft.jsinterop), that provide improvements on how Blazor integrates with JavaScript. Collectively, these classes form a new feature called [JS isolation](https://medium.com/r/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fdotnet%2Fapi%2Fmicrosoft.jsinterop).
+.NET 5.0 introduces a new set of classes in the [JS Interop namespace](https://docs.microsoft.com/en-us/dotnet/api/microsoft.jsinterop), that provide improvements on how Blazor integrates with JavaScript. Collectively, these classes form a new feature called [JS isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/call-javascript-from-dotnet#blazor-javascript-isolation-and-object-references).
 
-Instead of having to declare your JavaScript functions globally for your entire app, you can now separate them and tie them to the specific Razor components that will be using them. Together with [CSS Isolation](https://medium.com/r/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Faspnet%2Fcore%2Fblazor%2Fcomponents%2Fcss-isolation), this makes your components truly portable and self-contained.
+Instead of having to declare your JavaScript functions globally for your entire app, you can now separate them and tie them to the specific Razor components that will be using them. Together with [CSS Isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation), this makes your components truly portable and self-contained.
 
 This is particularly useful when distributing components in a Razor class library, since the users of your lib will no longer need to reference your JavaScript in a script tag, or even have any awareness of your inner implementation details.
 
@@ -39,7 +39,7 @@ This is particularly useful when distributing components in a Razor class librar
     }
     ```
 
-    This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the [import](https://medium.com/r/?url=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FJavaScript%2FReference%2FStatements%2Fimport) statement to bring in outside code to be used in our module (component1.js is known as a module), and the [export](https://medium.com/r/?url=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2Fweb%2Fjavascript%2Freference%2Fstatements%2Fexport) statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
+    This is a simple function that opens a prompt and says Hello World. The export keyword is important and denotes that we are using the standard JavaScript module system, known as ECMAScript (ES). Essentially, ES uses the [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) statement to bring in outside code to be used in our module (component1.js is known as a module), and the [export](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export) statement to publish our code to the outside (for instance to Blazor). We will see in the second part of this article how to import code from Node libraries.
 
 5. At this point, your folder structure should look something like this:
 
@@ -65,11 +65,11 @@ This is particularly useful when distributing components in a Razor class librar
     }
     ```
 
-    The OnAfterRenderAsync [lifecycle](https://medium.com/r/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Faspnet%2Fcore%2Fblazor%2Fcomponents%2Flifecycle) method is a good place to make JS Interop calls, since the DOM is fully loaded at this point. But you can make JS calls at any other time if you don't need the DOM.
+    The OnAfterRenderAsync [lifecycle](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle) method is a good place to make JS Interop calls, since the DOM is fully loaded at this point. But you can make JS calls at any other time if you don't need the DOM.
 
-    In keeping with the ES module system, we are performing a JavaScript import from Blazor using [InvokeAsync](https://medium.com/r/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fdotnet%2Fapi%2Fmicrosoft.jsinterop.jsruntime.invokeasync). This returns the IJSObjectReference of the imported module. This object must be properly disposed of since it implements IAsyncDisposable, hence the await using statement.
+    In keeping with the ES module system, we are performing a JavaScript import from Blazor using [InvokeAsync](https://docs.microsoft.com/en-us/dotnet/api/microsoft.jsinterop.jsruntime.invokeasync). This returns the IJSObjectReference of the imported module. This object must be properly disposed of since it implements IAsyncDisposable, hence the await using statement.
 
-    At this point, it's important to understand the [IJSObjectReference](https://medium.com/r/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fdotnet%2Fapi%2Fmicrosoft.jsinterop.ijsobjectreference) interface returned by the import statement. This is one of the new classes .NET 5.0 has introduced, and it represents a reference to a JavaScript object returned by a JavaScript function. Unlike a regular return value, it can only be used to invoke functions contained within the returned object. There are 2 more IJSObjectReference-type classes if your Blazor app is client-side only and you want to take advantage of some optimizations; you can use IJSInProcessObjectReference or even IJSUnmarshalledObjectReference for extreme optimization cases. Personally, I only develop client-side Blazor so I use IJSInProcessObjectReference. Server-side Blazor must stick to IJSObjectReference.
+    At this point, it's important to understand the [IJSObjectReference](https://docs.microsoft.com/en-us/dotnet/api/microsoft.jsinterop.ijsobjectreference) interface returned by the import statement. This is one of the new classes .NET 5.0 has introduced, and it represents a reference to a JavaScript object returned by a JavaScript function. Unlike a regular return value, it can only be used to invoke functions contained within the returned object. There are 2 more IJSObjectReference-type classes if your Blazor app is client-side only and you want to take advantage of some optimizations; you can use IJSInProcessObjectReference or even IJSUnmarshalledObjectReference for extreme optimization cases. Personally, I only develop client-side Blazor so I use IJSInProcessObjectReference. Server-side Blazor must stick to IJSObjectReference.
 
     The second line invokes a JavaScript function contained within the imported `component1.js` module, in this case helloWorld.
 
@@ -111,7 +111,7 @@ This is particularly useful when distributing components in a Razor class librar
     }
     ```
 
-    The OnInitialized lifecycle method prepares the JavaScript import statement. "Prepares" is the keyword here, since we aren't executing the statement right away, instead saving it for later in a [lazily initialized object](https://medium.com/r/?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fdotnet%2Fframework%2Fperformance%2Flazy-initialization). If we tried executing this asynchronous statement in an OnInitializedAsync method, by design Blazor would call our OnAfterRender method twice. The first time with a null value for the imported module, and the second time with the actual module, but a firstRender value of false, preventing us from using the module on the first render (for example to call a JavaScript initialization function).
+    The OnInitialized lifecycle method prepares the JavaScript import statement. "Prepares" is the keyword here, since we aren't executing the statement right away, instead saving it for later in a [lazily initialized object](https://docs.microsoft.com/en-us/dotnet/framework/performance/lazy-initialization). If we tried executing this asynchronous statement in an OnInitializedAsync method, by design Blazor would call our OnAfterRender method twice. The first time with a null value for the imported module, and the second time with the actual module, but a firstRender value of false, preventing us from using the module on the first render (for example to call a JavaScript initialization function).
 
     The OnAfterRenderAsync method is where we actually run the import statement. This is triggered the first time we access the Value field of our lazy object. This call is asynchronous, but perfectly safe to perform at this stage. We can now invoke the JavaScript functions contained within the imported module.
 
@@ -135,11 +135,11 @@ For the ultimate use of JS isolation, you can replicate the same approach in a c
 
 ## Using Node packages in Blazor with Snowpack
 
-Node.js is a JavaScript runtime and toolkit for running JavaScript apps outside of a browser. NPM is the Node Package Manager, and comes bundled with Node. NPM has become a standard for downloading and updating third-party JavaScript libraries. Although we are running JavaScript in the browser and aren't interested in using Node, we need NPM in order to take advantage of some of the packages that don't have a .NET equivalent.
+[Node.js](https://www.nodejs.org) is a JavaScript runtime and toolkit for running JavaScript apps outside of a browser. NPM is the Node Package Manager, and comes bundled with Node. NPM has become a standard for downloading and updating third-party JavaScript libraries. Although we are running JavaScript in the browser and aren't interested in using Node, we need NPM in order to take advantage of some of the packages that don't have a .NET equivalent.
 
 A downside to Node packages, is that they are not compatible with browsers out of the box. Node uses its own module system called CommonJS, while browsers support ECMAScript (ES). This has forced front-end web developers to use build tools called bundlers in order to convert JavaScript from CommonJS to ES.
 
-Snowpack is a lightweight, easy-to-use JavaScript build tool designed for front-end developers. I have found it to work particularly well in a Blazor development environment. And if you don't want a build tool at all, jump straight to the next section to learn about Skypack, a CDN that is ES compatible out of the box.
+[Snowpack](https://www.snowpack.dev) is a lightweight, easy-to-use JavaScript build tool designed for front-end developers. I have found it to work particularly well in a Blazor development environment. And if you don't want a build tool at all, jump straight to the next section to learn about Skypack, a CDN that is ES compatible out of the box.
 
 1. As a starting point, use the same Blazor project you created earlier in the article.
 
@@ -200,7 +200,7 @@ Snowpack is a lightweight, easy-to-use JavaScript build tool designed for front-
     }
     ```
 
-9. Let's turn our attention to the Snowpack config. Under the JS folder, Create a file called snowpack.config.js and paste the following:
+9. Let's turn our attention to the Snowpack config. Under the `JS` folder, Create a file called `snowpack.config.js` and paste the following:
 
     ```js
     module.exports = {
@@ -219,13 +219,13 @@ Snowpack is a lightweight, easy-to-use JavaScript build tool designed for front-
     };
     ```
 
-    This simple configuration loads the Optimize plugin, specifies the destination folder (out), and overwrites it as needed (clean). It also maps the source JS/src folder to the wwwroot/js destination folder.
+    This simple configuration loads the Optimize plugin, specifies the destination folder (out), and overwrites it as needed (clean). It also maps the source `JS/src` folder to the `wwwroot/js` destination folder.
 
 10. Your project's folder structure should look like this:
 
     ![Screenshot](/assets/js-in-blazor-screenshot2.png)
 
-11. The final stage of building our JavaScript toolchain is to integrate it into the VS build step. Double-click your project in the Solution Explorer in order to bring up your .csproj file. Add the following section:
+11. The final stage of building our JavaScript toolchain is to integrate it into the VS build step. Double-click your project in the Solution Explorer in order to bring up your `.csproj` file. Add the following section:
 
     ```xml
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -236,7 +236,7 @@ Snowpack is a lightweight, easy-to-use JavaScript build tool designed for front-
 
     This will instruct VS to run your snowpack-build NPM script when building your project in Debug and Release mode.
 
-12. Now that we have installed the tooling, let's finally write some JavaScript. Open the component1.js file under the JS folder, and modify it to look like this:
+12. Now that we have installed the tooling, let's finally write some JavaScript. Open the `component1.js` file under the `JS` folder, and modify it to look like this:
 
     ```js
     import _ from 'lodash';
@@ -261,9 +261,9 @@ Snowpack is a lightweight, easy-to-use JavaScript build tool designed for front-
 
 ## The lazy man option: using Node packages in Blazor with Skypack
 
-Skypack is a Content Delivery Network (CDN) that delivers NPM packages in ES format, so that it can be imported into your code directly, requiring no build step at all. This is a quick and easy option if you do not mind depending on a CDN, or if you want to test out a library without installing it first.
+[Skypack](https://www.skypack.dev) is a Content Delivery Network (CDN) that delivers NPM packages in ES format, so that it can be imported into your code directly, requiring no build step at all. This is a quick and easy option if you do not mind depending on a CDN, or if you want to test out a library without installing it first.
 
-For this option you do not need to install Node, NPM, Snowpack or modify any configuration as detailed in the previous section. This will work in your stock Blazor app with JS Isolation. Open your component1.js file under wwwroot/js and replace the content with:
+For this option you do not need to install Node, NPM, Snowpack or modify any configuration as detailed in the previous section. This will work in your stock Blazor app with JS Isolation. Open your `component1.js` file under `wwwroot/js` and replace the content with:
 
 ```js
 import _ from 'https://cdn.skypack.dev/lodash';
