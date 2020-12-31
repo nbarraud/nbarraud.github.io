@@ -1,7 +1,7 @@
 ﻿---
 layout: post
 title: How to use JavaScript and Node packages in a Blazor app
-date: 2020-12-29 00:00:00 -0500
+date: 2020-12-27 00:00:00 -0500
 ---
 
 ![The Blazor, Javascript and Node logos](/assets/js-in-blazor.png)
